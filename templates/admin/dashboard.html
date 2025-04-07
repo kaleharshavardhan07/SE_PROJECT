@@ -1,0 +1,104 @@
+<!-- templates/admin/dashboard.html -->
+{% extends 'base.html' %}
+
+{% block title %}Admin Dashboard - Facial Recognition Attendance{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <h2 class="mb-4">Admin Dashboard</h2>
+        
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card mb-4 text-center">
+                    <div class="card-body">
+                        <h1 class="display-4 text-primary">{{ stats.teachers }}</h1>
+                        <h5>Teachers</h5>
+                        <a href="{{ url_for('manage_teachers') }}" class="btn btn-sm btn-outline-primary mt-2">Manage</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card mb-4 text-center">
+                    <div class="card-body">
+                        <h1 class="display-4 text-success">{{ stats.students }}</h1>
+                        <h5>Students</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card mb-4 text-center">
+                    <div class="card-body">
+                        <h1 class="display-4 text-info">{{ stats.classes }}</h1>
+                        <h5>Classes</h5>
+                        <a href="{{ url_for('manage_classes') }}" class="btn btn-sm btn-outline-info mt-2">Manage</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card mb-4 text-center">
+                    <div class="card-body">
+                        <h1 class="display-4 text-warning">{{ stats.subjects }}</h1>
+                        <h5>Subjects</h5>
+                        <a href="{{ url_for('manage_subjects') }}" class="btn btn-sm btn-outline-warning mt-2">Manage</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Pending Verifications</h5>
+            </div>
+            <div class="card-body">
+                {% if stats.pending_verifications > 0 %}
+                    <p>There are <strong>{{ stats.pending_verifications }}</strong> student registrations pending verification.</p>
+                    <a href="{{ url_for('pending_verifications') }}" class="btn btn-primary">Review Pending Verifications</a>
+                {% else %}
+                    <p>No pending verifications at this time.</p>
+                {% endif %}
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="mb-0">Quick Actions</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-grid gap-2">
+                            <a href="{{ url_for('add_teacher') }}" class="btn btn-outline-primary">Add New Teacher</a>
+                            <a href="{{ url_for('add_class') }}" class="btn btn-outline-info">Add New Class</a>
+                            <a href="{{ url_for('add_subject') }}" class="btn btn-outline-warning">Add New Subject</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0">System Status</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Database Connection
+                                <span class="badge bg-success rounded-pill">Connected</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Face Recognition Service
+                                <span class="badge bg-success rounded-pill">Active</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Storage Space
+                                <span class="badge bg-success rounded-pill">Available</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

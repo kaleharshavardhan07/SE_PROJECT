@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Attendance Reports{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Attendance Reports</h2>
+
+    {% for session in sessions %}
+    <div class="card mb-4">
+        <div class="card-header">
+            <strong>{{ session.date }}</strong> | Class: {{ session.class.name }} | Subject: {{ session.subject.name }}
+        </div>
+        <div class="card-body">
+            <h5>Present Students ({{ session.present_students|length }})</h5>
+            <ul>
+                {% for student_name in session.present_students %}
+                <li>{{ student_name }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% endfor %}
+    
+</div>
+{% endblock %}

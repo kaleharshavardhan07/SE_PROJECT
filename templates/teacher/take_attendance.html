@@ -1,0 +1,130 @@
+<!-- templates/teacher/take_attendance.html -->
+{% extends 'base.html' %}
+
+{% block title %}Take Attendance - Facial Recognition Attendance{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <h2 class="mb-4">Take Attendance</h2>
+
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Upload Class Video</h5>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('take_attendance') }}" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="class_id" class="form-label">Select Class</label>
+                                <select class="form-select" id="class_id" name="class_id" required>
+                                    <option value="">-- Select Class --</option>
+                                    {% for class in classes %}
+                                    <option value="{{ class._id }}">{{ class.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="subject_id" class="form-label">Select Subject</label>
+                                <select class="form-select" id="subject_id" name="subject_id" required>
+                                    <option value="">-- Select Subject --</option>
+                                    {% for subject in subjects %}
+                                    <option value="{{ subject._id }}" data-class="{{ subject.class_id }}">{{
+                                        subject.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="video" class="form-label">Upload Video</label>
+                                <input type="file" class="form-control" id="video" name="video" accept="video/*"
+                                    required>
+                                <div class="form-text">
+                                    Upload a video of your class for facial recognition attendance.
+                                </div>
+                            </div>
+
+                            <div class="progress mt-3 d-none" id="upload-progress">
+                                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                                    style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-3">
+                        <button type="submit" class="btn btn-primary" id="submit-btn">
+                            <i class="fas fa-upload me-2"></i> Upload and Process
+                        </button>
+                        <a href="{{ url_for('teacher_dashboard') }}" class="btn btn-secondary ms-2">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0">Tips for Better Attendance Taking</h5>
+            </div>
+            <div class="card-body">
+                <ul>
+                    <li>Make sure the classroom is well-lit</li>
+                    <li>Ask students to face the camera briefly</li>
+                    <li>Record a video of at least 10-15 seconds</li>
+                    <li>Pan the camera slowly across the classroom</li>
+                    <li>For large classes, consider taking multiple short videos of different sections</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block extra_js %}
+<script>
+    // Filter subjects based on selected class
+    document.getElementById('class_id').addEventListener('change', function () {
+        const classId = this.value;
+        const subjectSelect = document.getElementById('subject_id');
+        const subjectOptions = subjectSelect.options;
+
+        for (let i = 0; i < subjectOptions.length; i++) {
+            const option = subjectOptions[i];
+            if (i === 0) { // Keep the placeholder option
+                continue;
+            }
+
+            if (option.dataset.class === classId) {
+                option.style.display = '';
+            } else {
+                option.style.display = 'none';
+            }
+        }
+
+        // Reset subject selection
+        subjectSelect.selectedIndex = 0;
+    });
+
+    // Show upload progress
+    document.querySelector('form').addEventListener('submit', function () {
+        document.getElementById('upload-progress').classList.remove('d-none');
+        document.getElementById('submit-btn').disabled = true;
+
+        // Simulate progress - in production you'd use actual upload progress
+        let progress = 0;
+        const progressBar = document.querySelector('.progress-bar');
+        const interval = setInterval(function () {
+            progress += 5;
+            progressBar.style.width = progress + '%';
+            progressBar.setAttribute('aria-valuenow', progress);
+
+            if (progress >= 100) {
+                clearInterval(interval);
+            }
+        }, 300);
+    });
+</script>
+{% endblock %}
+{% endblock %}

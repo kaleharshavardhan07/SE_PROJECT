@@ -1,0 +1,38 @@
+
+<!-- templates/admin/add_subject.html -->
+{% extends 'base.html' %}
+
+{% block title %}Add New Subject - Facial Recognition Attendance{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">Add New Subject</h4>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('add_subject') }}">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Subject Name</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="class_id" class="form-label">Class</label>
+                        <select class="form-select" id="class_id" name="class_id" required>
+                            <option value="">-- Select Class --</option>
+                            {% for class in classes %}
+                                <option value="{{ class._id }}">{{ class.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="d-flex">
+                        <button type="submit" class="btn btn-primary">Add Subject</button>
+                        <a href="{{ url_for('manage_subjects') }}" class="btn btn-secondary ms-2">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

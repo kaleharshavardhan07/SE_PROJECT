@@ -1,0 +1,59 @@
+<!-- templates/index.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 text-center">
+        <h1 class="display-4 mb-4">Facial Recognition Attendance System</h1>
+        <p class="lead">An advanced attendance management system for colleges using facial recognition technology.</p>
+        
+        <div class="row mt-5">
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-body text-center">
+                        <i class="fas fa-user-shield fa-3x mb-3 text-primary"></i>
+                        <h3>Admin</h3>
+                        <p>Manage teachers, classes, subjects and verify student registrations</p>
+                        {% if session.role == 'admin' %}
+                            <a href="{{ url_for('admin_dashboard') }}" class="btn btn-primary">Go to Dashboard</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-body text-center">
+                        <i class="fas fa-chalkboard-teacher fa-3x mb-3 text-success"></i>
+                        <h3>Teacher</h3>
+                        <p>Take attendance via video upload and view attendance reports</p>
+                        {% if session.role == 'teacher' %}
+                            <a href="{{ url_for('teacher_dashboard') }}" class="btn btn-success">Go to Dashboard</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-body text-center">
+                        <i class="fas fa-user-graduate fa-3x mb-3 text-info"></i>
+                        <h3>Student</h3>
+                        <p>Register with your photo and check your attendance statistics</p>
+                        {% if session.role == 'student' %}
+                            <a href="{{ url_for('student_dashboard') }}" class="btn btn-info">Go to Dashboard</a>
+                        {% else %}
+                            <a href="{{ url_for('register') }}" class="btn btn-info">Register Now</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        {% if 'user_id' not in session %}
+        <div class="mt-5">
+            <a href="{{ url_for('login') }}" class="btn btn-lg btn-primary mx-2">Login</a>
+            <a href="{{ url_for('register') }}" class="btn btn-lg btn-outline-primary mx-2">Register</a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
