@@ -2,7 +2,6 @@
 
 
 
-```markdown
 # 👨‍🏫 Facial Recognition Attendance System
 
 A web-based facial recognition attendance system built using **Flask**, **OpenCV**, **face-recognition**, and **MongoDB**, supporting **role-based authentication** for admins, teachers, and students.
@@ -61,7 +60,7 @@ Install dependencies with:
 
 ```bash
 pip install -r requirements.txt
-```
+
 
 `requirements.txt` should include:
 
