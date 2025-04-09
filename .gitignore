@@ -1,6 +1,6 @@
 # Virtual environment
 myenv/
-
+static/uploads
 # Bytecode
 __pycache__/
 *.py[cod]
