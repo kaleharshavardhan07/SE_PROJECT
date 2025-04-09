@@ -60,7 +60,7 @@ Install dependencies with:
 
 ```bash
 pip install -r requirements.txt
-
+```
 
 `requirements.txt` should include:
 
