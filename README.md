@@ -1,6 +1,6 @@
 
 
----
+
 
 ```markdown
 # 👨‍🏫 Facial Recognition Attendance System
@@ -158,5 +158,3 @@ Software Engineering Project 2024-25
 MIT License
 
 ---
-
-```
