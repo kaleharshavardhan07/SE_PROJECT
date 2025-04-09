@@ -549,4 +549,4 @@ if __name__ == '__main__':
         })
         print("Admin user created with email: admin@example.com and password: admin123")
     
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=0000, debug=True)
